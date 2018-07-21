@@ -9,7 +9,11 @@ abstract class ItemField(
 )
 
 
-class SmallBag() : ItemField(R.drawable.bug) {
+class SmallBag() : ItemField(R.drawable.bug_lite) {
+
+}
+
+class EvilBag() : ItemField(R.drawable.bug_hard) {
 
 }
 
