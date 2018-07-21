@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         startBugTimer()
     }
 
+
     private fun startBugTimer() {
         Observable
                 .just(1)
@@ -38,7 +39,15 @@ class MainActivity : AppCompatActivity() {
                     Log.wtf("bugbug", "new")
                     speed -= 300
                     speed = Math.max(speed, 300L)
+
+                    val r = Math.abs(random.nextInt() % 100)
+
+                    when {
+                        
+                    }
+
                     (bagFieldRv?.adapter as? BagRvAdapter)?.addItemToField(SmallBag())
+
                     startBugTimer()
                 }
 
