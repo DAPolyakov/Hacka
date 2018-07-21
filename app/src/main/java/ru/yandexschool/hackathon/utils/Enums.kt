@@ -7,9 +7,14 @@ enum class Progers {
     ABSENT
 }
 
-enum class Items {
-    COFFEE,
-    CAT,
-    PUNCH,
-    PROGER
+enum class Items (val desc: String) {
+
+    COFFEE("Кофе"),
+    CAT("Котик"),
+    PUNCH("Волшебный пендель"),
+    PROGER("Программист");
+
+    override fun toString(): String {
+        return desc
+    }
 }
