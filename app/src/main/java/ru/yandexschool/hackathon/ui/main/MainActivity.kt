@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     val random = Random(System.currentTimeMillis())
     private var speed = 2000L
 
+    private var score = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,7 +32,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        updateScore()
         startBugTimer()
+    }
+
+    private fun updateScore() {
+        val s = "Score: $score ฿"
+        tvScore.text = s
     }
 
     private fun finishGame() {
