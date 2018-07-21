@@ -1,5 +1,6 @@
 package ru.yandexschool.hackathon.ui.main
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -36,6 +37,10 @@ class MainActivity : AppCompatActivity() {
     var progers = Array<Proger?>(4, { null })
     var items = Array<Item?>(4, { null })
 
+    private lateinit var musBackground: MediaPlayer
+    private lateinit var lampFail: MediaPlayer
+    private lateinit var lose: MediaPlayer
+    private lateinit var progersUse: MediaPlayer
 
     //state
     var itemSelected: Items = Items.COFFEE
@@ -43,6 +48,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        musBackground = MediaPlayer.create(this, R.raw.background)
+        musBackground.isLooping = true
+        musBackground.start()
+
+        lampFail = MediaPlayer.create(this, R.raw.lamp_fail)
+        lose = MediaPlayer.create(this, R.raw.lose)
+        progersUse = MediaPlayer.create(this, R.raw.progers_use)
 
         //progers
 
@@ -54,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         progerLayoutParams.marginStart = 10
         progerLayoutParams.marginEnd = 10
 
-        for(i in 0 until ITEMS_COUNT) {
+        for (i in 0 until ITEMS_COUNT) {
             val image = ImageView(this)
             image.layoutParams = progerLayoutParams
             image.setImageResource(R.drawable.bug_hard)
@@ -62,12 +75,11 @@ class MainActivity : AppCompatActivity() {
             progers[i] = Proger(image, Progers.WORKING)
 
             progers[i]?.imageView?.setOnClickListener({
-
                 onProgerClicked(progers[i]?.type)
             })
         }
 
-        for(i in 0 until ITEMS_COUNT) {
+        for (i in 0 until ITEMS_COUNT) {
             ll_progers.addView(progers[i]?.imageView)
         }
 
@@ -82,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         itemsLayoutParams.marginStart = 10
         itemsLayoutParams.marginEnd = 10
 
-        for(i in 0 until ITEMS_COUNT) {
+        for (i in 0 until ITEMS_COUNT) {
             val image = ImageView(this)
             image.id = i
             image.layoutParams = itemsLayoutParams
@@ -105,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         items[2]?.imageView?.setImageResource(R.drawable.kick)
         items[3]?.type = Items.PROGER
 
-        for(i in 0 until ITEMS_COUNT) {
+        for (i in 0 until ITEMS_COUNT) {
             ll_items.addView(items[i]?.imageView)
         }
 
@@ -119,6 +131,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun addRating(rating: Int) {
                 score += rating
+
+                when {
+                    rating > 0 -> progersUse.start()
+                    rating < 0 -> lampFail.start()
+                }
+
                 score = Math.max(0, score)
                 updateScore()
             }
@@ -135,7 +153,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun finishGame() {
+        lose.start()
         gameIsFinished = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        try {
+            musBackground.stop()
+        } catch (ex: Exception) {
+
+        }
+
     }
 
     private fun startBugTimer() {
@@ -194,11 +224,6 @@ class MainActivity : AppCompatActivity() {
                         updateActiveProgersCount(progers)
                     }
 
-
-
-
-
-
                     startProgersTimer()
                 }
 
@@ -239,7 +264,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun progerTypeByIndex(index: Int) : Progers {
+    private fun progerTypeByIndex(index: Int): Progers {
         for (type in Progers.values()) {
             if (type.ordinal == index) {
                 return type
@@ -258,7 +283,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateActiveProgersCount(progers: Array<Proger?>) {
         var count = 0
 
-        for(proger in progers) {
+        for (proger in progers) {
             if (proger?.type == Progers.WORKING) {
                 count++
             }

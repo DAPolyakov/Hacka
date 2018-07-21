@@ -88,7 +88,7 @@ class BugRvAdapter(val listener: BugRvListener) : RecyclerView.Adapter<BugRvAdap
                 img.setImageResource(item.img)
 
                 view.setOnClickListener {
-                    if (!isGameFinished && adapterPosition > 0) {
+                    if (!isGameFinished && adapterPosition >= 0) {
                         when (data[adapterPosition]) {
                             is SmallBug -> {
                                 listener.addRating(data[adapterPosition].rating)
