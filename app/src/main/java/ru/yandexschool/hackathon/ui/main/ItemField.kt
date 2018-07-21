@@ -5,18 +5,14 @@ import ru.yandexschool.hackathon.R
 
 
 abstract class ItemField(
-        @DrawableRes val img: Int
+        @DrawableRes val img: Int,
+        val rating: Int,
+        var hp: Int = 0
 )
 
-
-class SmallBag() : ItemField(R.drawable.bug_lite) {
-
-}
-
-class EvilBag() : ItemField(R.drawable.bug_hard) {
-
-}
-
-class EmptyField() : ItemField(R.drawable.ic_launcher_background) {
+class SmallBug() : ItemField(R.drawable.bug_lite, 100)
+class EvilBug() : ItemField(R.drawable.bug_hard, 300)
+class Idea() : ItemField(R.drawable.ic_idea, -5000, 5)
+class EmptyField() : ItemField(R.drawable.ic_launcher_background, 0) {
 
 }

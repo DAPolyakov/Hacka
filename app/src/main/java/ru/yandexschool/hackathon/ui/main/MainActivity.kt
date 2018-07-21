@@ -26,9 +26,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bagFieldRv.layoutManager = GridLayoutManager(this, 4)
-        bagFieldRv.adapter = BagRvAdapter(object : BagRvListener {
+        bagFieldRv.adapter = BugRvAdapter(object : BugRvListener {
             override fun finishGame() {
                 this@MainActivity.finishGame()
+            }
+
+            override fun addRating(rating: Int) {
+                score += rating
+                score = Math.max(0, score)
+                updateScore()
             }
         })
 
@@ -59,9 +65,13 @@ class MainActivity : AppCompatActivity() {
 
                         val r = Math.abs(random.nextInt() % 100)
 
-                        val item = if (r < 80) SmallBag() else EvilBag()
+                        val item = when {
+                            r < 70 -> SmallBug()
+                            (r >= 70) && (r < 90) -> EvilBug()
+                            else -> Idea()
+                        }
 
-                        (bagFieldRv?.adapter as? BagRvAdapter)?.addItemToField(item)
+                        (bagFieldRv?.adapter as? BugRvAdapter)?.addItemToField(item)
 
                         startBugTimer()
                     }
