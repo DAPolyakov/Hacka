@@ -60,16 +60,19 @@ class MainActivity : AppCompatActivity() {
             image.setImageResource(R.drawable.bug_hard)
 
             progers[i] = Proger(image, Progers.WORKING)
+            progers[i]?.imageView?.setImageResource(R.drawable.prog_working)
 
             progers[i]?.imageView?.setOnClickListener({
 
-                onProgerClicked(progers[i]?.type)
+                onProgerClicked(progers[i])
             })
         }
 
         for(i in 0 until ITEMS_COUNT) {
             ll_progers.addView(progers[i]?.imageView)
         }
+
+
 
 
         //items
@@ -104,6 +107,7 @@ class MainActivity : AppCompatActivity() {
         items[2]?.type = Items.PUNCH
         items[2]?.imageView?.setImageResource(R.drawable.kick)
         items[3]?.type = Items.PROGER
+        items[3]?.imageView?.setImageResource(R.drawable.prog_working)
 
         for(i in 0 until ITEMS_COUNT) {
             ll_items.addView(items[i]?.imageView)
@@ -117,6 +121,8 @@ class MainActivity : AppCompatActivity() {
                 this@MainActivity.finishGame()
             }
         })
+
+        updateActiveProgers(ITEMS_COUNT)
 
         updateScore()
         startBugTimer()
@@ -180,11 +186,8 @@ class MainActivity : AppCompatActivity() {
                         //TODO: update proger pic
                         updateProgerPic(progers[randomProgerIndex]?.imageView, newProgerType)
 
-                        //todo: update active progers count
                         updateActiveProgersCount(progers)
                     }
-
-
 
 
 
@@ -207,24 +210,36 @@ class MainActivity : AppCompatActivity() {
         }
 
         //debug
-        Toast.makeText(this, itemType.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Выбрано: " + itemType.toString(), Toast.LENGTH_SHORT).show()
 
         itemSelected = itemType
     }
 
-    private fun onProgerClicked(progerType: Progers?) {
-        if (progerType == null) {
-            return
-        }
+    private fun onProgerClicked(proger: Proger?) {
 
+        if  (proger == null) return
         //debug
         //Toast.makeText(this, "Proger:" + progerType.toString(), Toast.LENGTH_SHORT).show()
 
 
         //logic
+        val progerType = proger.type
 
-        //TODO: if right
-        //updateActiveProgers()
+        if (progerType == Progers.SLEEP && itemSelected == Items.COFFEE) {
+            proger.type = Progers.WORKING
+            updateActiveProgersCount(progers)
+            updateProgerPic(proger.imageView, Progers.WORKING)
+        }
+        else if (progerType == Progers.GAME && itemSelected == Items.PUNCH) {
+            proger.type = Progers.WORKING
+            updateActiveProgersCount(progers)
+            updateProgerPic(proger.imageView, Progers.WORKING)
+        }
+        else if (progerType == Progers.ABSENT && itemSelected == Items.PROGER) {
+            proger.type = Progers.WORKING
+            updateActiveProgersCount(progers)
+            updateProgerPic(proger.imageView, Progers.WORKING)
+        }
 
     }
 
@@ -243,6 +258,18 @@ class MainActivity : AppCompatActivity() {
         if (imageView == null) return
 
         Log.d("tag-----------------", "progertype changed to $progerType")
+
+        var imgRes = 0
+
+        when (progerType) {
+            Progers.WORKING -> imgRes=R.drawable.prog_working
+            Progers.SLEEP -> imgRes=R.drawable.prog_sleep
+            Progers.GAME -> imgRes=R.drawable.prog_game
+            Progers.ABSENT -> imgRes=R.drawable.prog_absent
+            //Progers.SLEEP -> imgRes == ...
+        }
+
+        imageView.setImageResource(imgRes)
     }
 
     private fun updateActiveProgersCount(progers: Array<Proger?>) {
