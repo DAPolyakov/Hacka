@@ -29,12 +29,5 @@ class StartActivity : AppCompatActivity() {
         activity_start_btn_rating.setOnClickListener {
             startActivity(Intent(this, RatingActivity::class.java))
         }
-
-        val score = 10
-        MaterialDialog.Builder(this)
-                .title("Your score is $score")
-                .input(null, null, MaterialDialog.InputCallback { dialog, input ->
-                    // Publish
-                }).show()
     }
 }
