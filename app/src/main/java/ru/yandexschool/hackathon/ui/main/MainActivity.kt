@@ -98,8 +98,11 @@ class MainActivity : AppCompatActivity() {
 
         //item types
         items[0]?.type = Items.COFFEE
+        items[0]?.imageView?.setImageResource(R.drawable.coffee)
         items[1]?.type = Items.CAT
+        items[1]?.imageView?.setImageResource(R.drawable.cat)
         items[2]?.type = Items.PUNCH
+        items[2]?.imageView?.setImageResource(R.drawable.kick)
         items[3]?.type = Items.PROGER
 
         for(i in 0 until ITEMS_COUNT) {
@@ -169,16 +172,29 @@ class MainActivity : AppCompatActivity() {
 
                     val newProgerType = progerTypeByIndex(randomTypeIndex)
 
-                    progers[randomProgerIndex]?.type = newProgerType
+                    if (progers[randomProgerIndex]?.type == Progers.WORKING) {
+                        progers[randomProgerIndex]?.type = newProgerType
 
-                    Toast.makeText(this, "change proger $randomProgerIndex to state $newProgerType", Toast.LENGTH_SHORT).show()
-                    Log.d("tag", "i'm here")
+                        //Toast.makeText(this, "change proger $randomProgerIndex to state $newProgerType", Toast.LENGTH_SHORT).show()
+
+                        //TODO: update proger pic
+                        updateProgerPic(progers[randomProgerIndex]?.imageView, newProgerType)
+
+                        //todo: update active progers count
+                        updateActiveProgersCount(progers)
+                    }
+
+
+
+
+
 
                     startProgersTimer()
                 }
 
     }
 
+    //DIMA FUNC
     private fun updateActiveProgers(count: Int) {
 
     }
@@ -202,10 +218,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         //debug
-        Toast.makeText(this, "Proger:" + progerType.toString(), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Proger:" + progerType.toString(), Toast.LENGTH_SHORT).show()
 
 
         //logic
+
+        //TODO: if right
+        //updateActiveProgers()
+
     }
 
 
@@ -217,6 +237,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         return Progers.WORKING
+    }
+
+    private fun updateProgerPic(imageView: ImageView?, progerType: Progers) {
+        if (imageView == null) return
+
+        Log.d("tag-----------------", "progertype changed to $progerType")
+    }
+
+    private fun updateActiveProgersCount(progers: Array<Proger?>) {
+        var count = 0
+
+        for(proger in progers) {
+            if (proger?.type == Progers.WORKING) {
+                count++
+            }
+        }
+
+        updateActiveProgers(count)
+
     }
 
 }
