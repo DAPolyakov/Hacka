@@ -9,10 +9,16 @@ import ru.yandexschool.hackathon.R
 import java.util.*
 
 
-class BagRvAdapter : RecyclerView.Adapter<BagRvAdapter.ViewHolder>() {
+interface BagRvListener {
+    fun finishGame()
+}
+
+class BagRvAdapter(val listener: BagRvListener) : RecyclerView.Adapter<BagRvAdapter.ViewHolder>() {
 
     private val data = ArrayList<ItemField>()
     private val random = Random(System.currentTimeMillis())
+
+    private var isGameFinished = false
 
     fun addItemToField(item: ItemField) {
 
@@ -21,6 +27,8 @@ class BagRvAdapter : RecyclerView.Adapter<BagRvAdapter.ViewHolder>() {
         }
 
         if (empty == 0) {
+            isGameFinished = true
+            listener.finishGame()
             return
         }
 
@@ -65,10 +73,24 @@ class BagRvAdapter : RecyclerView.Adapter<BagRvAdapter.ViewHolder>() {
             img.setImageResource(item.img)
 
             view.setOnClickListener {
-                data[adapterPosition] = EmptyField()
-                notifyItemChanged(adapterPosition)
-//                notifyDataSetChanged()
+                if (!isGameFinished) {
+                    when (data[adapterPosition]) {
+                        is SmallBag -> {
+                            data[adapterPosition] = EmptyField()
+                            notifyItemChanged(adapterPosition)
+                        }
+                        is EvilBag -> {
+                            data[adapterPosition] = EmptyField()
+                            notifyItemChanged(adapterPosition)
+                            addItemToField(SmallBag())
+                            addItemToField(SmallBag())
+                        }
+//                    is EmptyField -> data[adapterPosition] = SmallBag()
+                    }
+                }
             }
         }
     }
+
+
 }

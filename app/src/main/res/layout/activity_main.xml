@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
+    <TextView
+        android:id="@+id/tvScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Score: "
+        android:textColor="#012379"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <LinearLayout
         android:id="@+id/ll_progers"
         android:layout_width="match_parent"
