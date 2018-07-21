@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var lose: MediaPlayer
     private lateinit var progersUse: MediaPlayer
 
-    //state
     var itemSelected: Items = Items.COFFEE
     private val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference()
 
