@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.yandexschool.hackathon.R
-import ru.yandexschool.hackathon.entity.Rating
 
 
 class RatingRecyclerAdapter() : RecyclerView.Adapter<RatingRecyclerAdapter.ViewHolder>() {
 
-    init{
+    init {
         //TODO get items from firebase asynchornoulsy
     }
 
@@ -24,7 +23,7 @@ class RatingRecyclerAdapter() : RecyclerView.Adapter<RatingRecyclerAdapter.ViewH
 
     override fun getItemCount(): Int = 10
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     }
 }

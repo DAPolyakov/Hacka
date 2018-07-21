@@ -1,12 +1,13 @@
 package ru.yandexschool.hackathon.activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.res.ResourcesCompat
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_start.*
 import ru.yandexschool.hackathon.R
 import ru.yandexschool.hackathon.Utils
+import ru.yandexschool.hackathon.ui.main.MainActivity
 
 class StartActivity : AppCompatActivity() {
 
