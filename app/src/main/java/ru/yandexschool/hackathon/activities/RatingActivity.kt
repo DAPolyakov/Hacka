@@ -45,6 +45,11 @@ class RatingActivity : AppCompatActivity() {
                     records.add(snapShot.getValue(Rating::class.java)!!)
                 }
                 records.sortBy { -it.score }
+
+                for ((i, r) in records.withIndex()) {
+                    r.position = i + 1
+                }
+
                 mAdapter.addAll(records)
             }
         })

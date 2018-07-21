@@ -26,8 +26,8 @@ class BugRvAdapter(val listener: BugRvListener) : RecyclerView.Adapter<BugRvAdap
         val empty = data.count {
             it is EmptyField
         }
-
-        if (empty == 0) {
+        
+        if (empty == 1) {
             isGameFinished = true
             listener.finishGame()
             return

@@ -17,11 +17,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.yandexschool.hackathon.R
+import ru.yandexschool.hackathon.entity.Rating
 import ru.yandexschool.hackathon.utils.Item
 import ru.yandexschool.hackathon.utils.Items
 import ru.yandexschool.hackathon.utils.Proger
 import ru.yandexschool.hackathon.utils.Progers
-import ru.yandexschool.hackathon.entity.Rating
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -30,10 +30,9 @@ class MainActivity : AppCompatActivity() {
     var gameIsFinished = false
 
     val random = Random(System.currentTimeMillis())
-    private var speed = 2000L
+    private var speed = 3000L
     private var score = 0
-    private var progersSpeed = 3000L
-
+    private var progersSpeed = 10000L
 
     private val ITEMS_COUNT = 4
 
@@ -79,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             progers[i]?.imageView?.setImageResource(R.drawable.prog_working)
 
             progers[i]?.imageView?.setOnClickListener({
-                onProgerClicked(progers[i]?.type)
+                onProgerClicked(progers[i])
 
                 onProgerClicked(progers[i])
             })
@@ -88,8 +87,6 @@ class MainActivity : AppCompatActivity() {
         for (i in 0 until ITEMS_COUNT) {
             ll_progers.addView(progers[i]?.imageView)
         }
-
-
 
 
         //items
@@ -166,11 +163,12 @@ class MainActivity : AppCompatActivity() {
     private fun finishGame() {
         lose.start()
         gameIsFinished = true
+        score = 9999
         MaterialDialog.Builder(this)
                 .title("Your score is $score")
                 .input(null, null, MaterialDialog.InputCallback { dialog, input ->
                     // Publish
-                    val rating = Rating(databaseReference.push().key!!,1, input.toString(), score)
+                    val rating = Rating(databaseReference.push().key!!, 1, input.toString(), score)
                     databaseReference.child(rating.id).setValue(rating)
                     finish()
                 }).show()
@@ -196,7 +194,7 @@ class MainActivity : AppCompatActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
                         Log.wtf("bugbug", "new")
-                        speed -= 300
+                        speed -= 200
                         speed = Math.max(speed, 300L)
 
                         val r = Math.abs(random.nextInt() % 100)
@@ -270,7 +268,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onProgerClicked(proger: Proger?) {
 
-        if  (proger == null) return
+        if (proger == null) return
         //debug
         //Toast.makeText(this, "Proger:" + progerType.toString(), Toast.LENGTH_SHORT).show()
 
@@ -282,16 +280,17 @@ class MainActivity : AppCompatActivity() {
             proger.type = Progers.WORKING
             updateActiveProgersCount(progers)
             updateProgerPic(proger.imageView, Progers.WORKING)
-        }
-        else if (progerType == Progers.GAME && itemSelected == Items.PUNCH) {
+            progersUse.start()
+        } else if (progerType == Progers.GAME && itemSelected == Items.PUNCH) {
             proger.type = Progers.WORKING
             updateActiveProgersCount(progers)
             updateProgerPic(proger.imageView, Progers.WORKING)
-        }
-        else if (progerType == Progers.ABSENT && itemSelected == Items.PROGER) {
+            progersUse.start()
+        } else if (progerType == Progers.ABSENT && itemSelected == Items.PROGER) {
             proger.type = Progers.WORKING
             updateActiveProgersCount(progers)
             updateProgerPic(proger.imageView, Progers.WORKING)
+            progersUse.start()
         }
 
     }
@@ -315,11 +314,11 @@ class MainActivity : AppCompatActivity() {
         var imgRes = 0
 
         when (progerType) {
-            Progers.WORKING -> imgRes=R.drawable.prog_working
-            Progers.SLEEP -> imgRes=R.drawable.prog_sleep
-            Progers.GAME -> imgRes=R.drawable.prog_game
-            Progers.ABSENT -> imgRes=R.drawable.prog_absent
-            //Progers.SLEEP -> imgRes == ...
+            Progers.WORKING -> imgRes = R.drawable.prog_working
+            Progers.SLEEP -> imgRes = R.drawable.prog_sleep
+            Progers.GAME -> imgRes = R.drawable.prog_game
+            Progers.ABSENT -> imgRes = R.drawable.prog_absent
+        //Progers.SLEEP -> imgRes == ...
         }
 
         imageView.setImageResource(imgRes)

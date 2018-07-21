@@ -13,6 +13,6 @@ abstract class ItemField(
 class SmallBug() : ItemField(R.drawable.bug_lite, 100)
 class EvilBug() : ItemField(R.drawable.bug_hard, 300)
 class Idea() : ItemField(R.drawable.ic_idea, -5000, 5)
-class EmptyField() : ItemField(R.drawable.ic_launcher_background, 0) {
+class EmptyField() : ItemField(R.drawable.white, 0) {
 
 }
