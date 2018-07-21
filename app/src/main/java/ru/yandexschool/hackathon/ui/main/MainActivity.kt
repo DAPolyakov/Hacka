@@ -163,9 +163,9 @@ class MainActivity : AppCompatActivity() {
     private fun finishGame() {
         lose.start()
         gameIsFinished = true
-        score = 9999
         MaterialDialog.Builder(this)
                 .title("Your score is $score")
+                .cancelable(false)
                 .input(null, null, MaterialDialog.InputCallback { dialog, input ->
                     // Publish
                     val rating = Rating(databaseReference.push().key!!, 1, input.toString(), score)
