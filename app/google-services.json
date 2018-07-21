@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "101968218153",
+    "firebase_url": "https://yandexhackaton.firebaseio.com",
+    "project_id": "yandexhackaton",
+    "storage_bucket": "yandexhackaton.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101968218153:android:7cbf1c038ef0edbc",
+        "android_client_info": {
+          "package_name": "ru.yandexschool.hackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "101968218153-tv4ek00okhbaaeu9876gjnq8unlsnjhl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHQjTvk8mcjyj3yPf1oiUl_jKF407xFm8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
