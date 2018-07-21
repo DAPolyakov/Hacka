@@ -62,4 +62,5 @@ dependencies {
     implementation "com.android.support:design:$support"
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
 }

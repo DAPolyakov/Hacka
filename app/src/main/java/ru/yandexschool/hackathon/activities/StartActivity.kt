@@ -8,6 +8,8 @@ import kotlinx.android.synthetic.main.activity_start.*
 import ru.yandexschool.hackathon.R
 import ru.yandexschool.hackathon.Utils
 import ru.yandexschool.hackathon.ui.main.MainActivity
+import com.afollestad.materialdialogs.MaterialDialog
+
 
 
 class StartActivity : AppCompatActivity() {
@@ -27,12 +29,5 @@ class StartActivity : AppCompatActivity() {
         activity_start_btn_rating.setOnClickListener {
             startActivity(Intent(this, RatingActivity::class.java))
         }
-
-//        val score = 10
-//        MaterialDialog.Builder(this)
-//                .title("Your score is $score")
-//                .input(null, null, MaterialDialog.InputCallback { dialog, input ->
-//                    // Publish
-//                }).show()
     }
 }

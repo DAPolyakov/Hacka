@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import com.afollestad.materialdialogs.MaterialDialog
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,6 +21,7 @@ import ru.yandexschool.hackathon.utils.Item
 import ru.yandexschool.hackathon.utils.Items
 import ru.yandexschool.hackathon.utils.Proger
 import ru.yandexschool.hackathon.utils.Progers
+import ru.yandexschool.hackathon.entity.Rating
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -27,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
     val random = Random(System.currentTimeMillis())
     private var speed = 2000L
-
     private var score = 0
     private var progersSpeed = 3000L
 
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     //state
     var itemSelected: Items = Items.COFFEE
+    private val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -155,6 +159,14 @@ class MainActivity : AppCompatActivity() {
     private fun finishGame() {
         lose.start()
         gameIsFinished = true
+        MaterialDialog.Builder(this)
+                .title("Your score is $score")
+                .input(null, null, MaterialDialog.InputCallback { dialog, input ->
+                    // Publish
+                    val rating = Rating(databaseReference.push().key!!,1, input.toString(), score)
+                    databaseReference.child(rating.id).setValue(rating)
+                    finish()
+                }).show()
     }
 
     override fun onStop() {

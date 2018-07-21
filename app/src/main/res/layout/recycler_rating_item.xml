@@ -9,25 +9,28 @@
         style="@style/RecyclerRatingItem"
         android:id="@+id/recycler_rating_item_number"
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        android:padding="8dp"
         android:text="2"/>
 
     <TextView
         style="@style/RecyclerRatingItem"
         android:id="@+id/recycler_rating_item_name"
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:maxWidth="300dp"
         app:layout_constraintStart_toEndOf="@+id/recycler_rating_item_number"
+        android:padding="8dp"
         android:text="Имя игрока"/>
 
     <TextView
         style="@style/RecyclerRatingItem"
         android:id="@+id/recycler_rating_item_score"
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        android:padding="8dp"
         android:text="10500"/>
 
 </android.support.constraint.ConstraintLayout>
