@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
     private var speed = 2000L
 
     private var score = 0
-    private var speed = 3000L
     private var progersSpeed = 3000L
 
 
