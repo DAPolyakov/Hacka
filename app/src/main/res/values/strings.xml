@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Hackathon</string>
+    <string name="app_name">Тап-тап Тимлид</string>
+    <string name="start">Старт</string>
+    <string name="rules">Привет!\n Поздравляю с успешным завершением Школы Мобильной Разработки
+    в Яндекс. Теперь ты Team Lead!\n
+        Ты должен бороться с багами вместе со своей командой и поддерживать своих разработчиков.
+    Также, ты должен уметь отличить хорошую идею и не ломать ее!</string>
+    <string name="rating">Рейтинг</string>
 </resources>
