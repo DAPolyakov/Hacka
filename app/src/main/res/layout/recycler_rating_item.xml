@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        style="@style/RecyclerRatingItem"
+        android:id="@+id/recycler_rating_item_number"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="2"/>
+
+    <TextView
+        style="@style/RecyclerRatingItem"
+        android:id="@+id/recycler_rating_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:maxWidth="300dp"
+        app:layout_constraintStart_toEndOf="@+id/recycler_rating_item_number"
+        android:text="Имя игрока"/>
+
+    <TextView
+        style="@style/RecyclerRatingItem"
+        android:id="@+id/recycler_rating_item_score"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="10500"/>
+
+</android.support.constraint.ConstraintLayout>

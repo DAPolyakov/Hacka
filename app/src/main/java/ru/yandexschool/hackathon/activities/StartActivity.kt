@@ -18,8 +18,12 @@ class StartActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        activity_start_btn.setOnClickListener {
+        activity_start_btn_start.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
+        }
+
+        activity_start_btn_rating.setOnClickListener {
+            startActivity(Intent(this, RatingActivity::class.java))
         }
     }
 }
